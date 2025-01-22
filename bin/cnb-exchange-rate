@@ -1,0 +1,2 @@
+#!/bin/bash
+php -f /usr/lib/cnb-tools/cnb-exchange-rate.php -- $@

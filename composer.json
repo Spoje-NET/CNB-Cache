@@ -1,0 +1,29 @@
+{
+    "name": "spojenet/cnb-exchange-rate-list2json",
+    "description": "Application for downloading the CNB exchange rate list.",
+    "type": "project",
+    "require": {
+        "vitexsoftware/ease-core": "^1.45"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "license": "MIT",
+    "require-dev": {
+        "phpunit/phpunit": "*",
+        "phpstan/phpstan": "*",
+        "friendsofphp/php-cs-fixer": "^3.65",
+        "ergebnis/composer-normalize": "^2.43",
+        "ergebnis/php-cs-fixer-config": "^6.34"
+    },
+    "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true
+        }
+    }
+
+}
