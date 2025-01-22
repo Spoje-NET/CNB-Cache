@@ -1,0 +1,34 @@
+{
+  "name": "spojenet/cnbtools",
+  "description": "CNB Exchange rate Cache",
+  "type": "project",
+  "require": {
+    "deb/ease-fluentpdo": "*"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Vítězslav Dvořák",
+      "email": "info@vitexsoftware.cz"
+    }
+  ],
+  "config": {
+    "vendor-dir": "/var/lib/composer/cnb-tools"
+  },
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "SpojeNet\\Cnb\\": "/usr/lib/cnb-tools/"
+    }
+  },
+  "repositories": [
+    {
+      "type": "path",
+      "url": "/usr/share/php/EaseCore/"
+    },
+    {
+      "type": "path",
+      "url": "/usr/share/php/EaseFluentPDO/"
+    }
+  ]
+}

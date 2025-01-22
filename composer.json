@@ -3,11 +3,13 @@
     "description": "Application for downloading the CNB exchange rate list.",
     "type": "project",
     "require": {
-        "vitexsoftware/ease-core": "^1.45"
+        "vitexsoftware/ease-core": "^1.45",
+        "robmorgan/phinx": "^0.16.6",
+        "vitexsoftware/ease-fluentpdo": "^1.4"
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "SpojeNet\\Cnb\\": "src/SpojeNet/Cnb"
         }
     },
     "minimum-stability": "stable",

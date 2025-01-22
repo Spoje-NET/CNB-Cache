@@ -1,6 +1,11 @@
-# php-cnb-app
+# CNB Tools
 
-Tento projekt je PHP aplikace, která stahuje kurzovní lístek České národní banky (ČNB) pro zadané datum a měnu a ukládá jej do JSON souboru.
+![cnb-tools](cnb-tools.svg?raw=true)
+
+
+http://localhost/CNB-Tools/src/rate.php?currency=eur - todays EUR rate
+http://localhost/CNB-Tools/src/rate.php?currency=usd&age=1 - yesterday $ rate
+
 
 ## Struktura projektu
 

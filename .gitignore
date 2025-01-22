@@ -4,3 +4,12 @@
 /nbproject/
 /.build/
 /.vscode/
+/debian/.debhelper/
+/debian/cnb-tools/
+/debian/cnb-tools.debhelper.log
+/debian/debhelper-build-stamp
+/debian/files
+/debian/cnb-tools.substvars
+/debian/cnb-tools-mysql/
+/debian/cnb-tools-pgsql/
+/debian/cnb-tools-sqlite/

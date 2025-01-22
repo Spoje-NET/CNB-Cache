@@ -27,6 +27,10 @@ cs: ## Update Coding Standards
 phpunit: ## Run Tests
 	vendor/bin/phpunit tests
 
+.PHONY: migration
+migration: ## Run database migrations
+	cd src ; ../vendor/bin/phinx migrate -c ../phinx-adapter.php ; cd ..
 
-
-
+.PHONY: newmigration
+newmigration: ## Prepare new Database Migration
+	read -p "Enter CamelCase migration name : " migname ; cd src ; ../vendor/bin/phinx create $$migname -c ../phinx-adapter.php ; cd ..

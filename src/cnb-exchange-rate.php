@@ -52,10 +52,10 @@ if ($httpcode !== 200) {
 
 $data = explode("\n", $response);
 
-$engine = new \Ease\Sand();
+array_shift($data);
+array_shift($data);
 
-array_shift($data);
-array_shift($data);
+$engine = new \Ease\Sand();
 
 $currency = Shared::cfg('CURRENCY');
 $kurz = [];

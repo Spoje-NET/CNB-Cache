@@ -1,0 +1,16 @@
+src/index.php                            usr/share/cnb-tools
+db/migrations/*				 usr/lib/cnb-tools/db/migrations
+#db/seeds/*				 usr/lib/cnb-tools/db/seeds
+debian/tmp/composer.json                 usr/lib/cnb-tools
+debian/conf/phinx-adapter.php	         usr/lib/cnb-tools
+
+src/SpojeNet/Cnb/ExchangeRate.php	 usr/lib/cnb-tools/
+
+debian/conf/cnb-tools.conf    		  etc/apache2/conf-available
+debian/conf/cnb-tools.service 		  etc/avahi/services
+bin/*					  usr/bin
+src/init.php					  usr/lib/cnb-tools
+src/update.php					  usr/lib/cnb-tools
+#debian/cz.spojenet.cnb-tools.metainfo.xml    usr/share/metainfo/
+#debian/cz.spojenet.cnb-tools.desktop         usr/share/applications/
+cnb-tools.svg                 usr/share/icons/hicolor/scalable/apps/
