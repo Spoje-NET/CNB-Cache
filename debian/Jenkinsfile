@@ -49,11 +49,6 @@ distributions.each {
             stage('Build ' + distribution) {
                 buildImage.inside {
                     sh 'dch -b -v ' + ver  + ' "' + env.BUILD_TAG  + '"'
-            sh 'sudo mkdir -p /etc/apt/keyrings/'
-                    sh 'sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc'
-                    sh 'sudo chmod a+r /etc/apt/keyrings/docker.asc'
-                    sh 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/' + distroFamily + ' $(. /etc/os-release && if [ "$VERSION_CODENAME" = "trixie" ]; then echo "bookworm"; else echo "$VERSION_CODENAME"; fi) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null'
-                    sh 'sudo apt-get update --allow-releaseinfo-change'
                     sh 'sudo chown jenkins:jenkins ..'
                     sh 'debuild-pbuilder  -i -us -uc -b'
                     sh 'mkdir -p $WORKSPACE/dist/debian/ ; rm -rf $WORKSPACE/dist/debian/* ; for deb in $(cat debian/files | awk \'{print $1}\'); do mv "../$deb" $WORKSPACE/dist/debian/; done'
@@ -66,7 +61,7 @@ distributions.each {
 
             stage('Test ' + distribution) {
                 buildImage.inside {
-                    def debconf_debug = 0 //Set to "5" or "developer" to debug debconf
+                    def debconf_debug = 5 //Set to "5" or "developer" to debug debconf
                     sh 'cd $WORKSPACE/dist/debian/ ; dpkg-scanpackages . /dev/null | gzip -9c > Packages.gz; cd $WORKSPACE'
                     sh 'echo "deb [trusted=yes] file://///$WORKSPACE/dist/debian/ ./" | sudo tee /etc/apt/sources.list.d/local.list'
                     sh 'sudo apt-get update --allow-releaseinfo-change'

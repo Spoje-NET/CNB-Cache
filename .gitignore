@@ -13,3 +13,7 @@
 /debian/cnb-tools-mysql/
 /debian/cnb-tools-pgsql/
 /debian/cnb-tools-sqlite/
+/debian/cnb-tools-sqlite.debhelper.log
+/debian/cnb-tools-mysql.debhelper.log
+/debian/cnb-tools-mysql.substvars
+/debian/cnb-tools-sqlite.substvars
