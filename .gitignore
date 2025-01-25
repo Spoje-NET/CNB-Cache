@@ -19,3 +19,5 @@
 /debian/cnb-cache-sqlite.substvars
 /debian/cnb-cache.postrm.debhelper
 /debian/tmp/composer.json
+/debian/cnb-cache-mysql.postrm.debhelper
+/debian/cnb-cache-sqlite.postrm.debhelper

@@ -1,0 +1,67 @@
+#!/bin/sh
+set -e
+set -x
+
+
+. /usr/share/debconf/confmodule
+
+db_version 2.0
+
+
+
+
+
+case "$1" in
+    configure)
+
+
+    if [ -f /usr/share/dbconfig-common/dpkg/postinst ]; then
+        . /usr/share/dbconfig-common/dpkg/postinst
+        # shellcheck disable=SC2034
+        dbc_generate_include_args="-U -o template_infile=/usr/lib/cnb-cache/.env.template"
+        # shellcheck disable=SC2034
+        dbc_generate_include=template:/etc/cnb-cache/cnb-cache.env
+        # shellcheck disable=SC2034
+        dbc_generate_include_owner="root:www-data"
+        # shellcheck disable=SC2034
+        dbc_generate_include_perms="664"
+        # shellcheck disable=SC2034
+        dbc_dbfile_owner="www-data:www-data"
+        # shellcheck disable=SC2034
+        dbc_dbfile_perms="0664"
+        # shellcheck disable=SC2034
+        dbc_dbuser=cnb-cache
+        # shellcheck disable=SC2034
+        dbc_dbname=cnb-cache
+
+        dbc_go cnb-cache-sqlite "$@"
+
+        echo "############################"
+        cat /etc/cnb-cache/cnb-cache.env
+        echo "############################"
+
+        phinx migrate -c /usr/lib/cnb-cache/phinx-adapter.php
+
+        if [ -f /var/lib/cnb-cache/cnb-cache ]; then
+            chown root:www-data /var/lib/cnb-cache
+            chmod ug+rw /var/lib/cnb-cache
+        fi
+
+    fi
+
+
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+
+#DEBHELPER#
+
+exit 0
