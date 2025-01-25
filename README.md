@@ -1,10 +1,10 @@
-# CNB Tools
+# CNB cache
 
-![cnb-tools](cnb-tools.svg?raw=true)
+![cnb-cache](cnb-cache.svg?raw=true)
 
 
-http://localhost/CNB-Tools/src/rate.php?currency=eur - todays EUR rate
-http://localhost/CNB-Tools/src/rate.php?currency=usd&age=1 - yesterday $ rate
+http://localhost/CNB-cache/src/rate.php?currency=eur - todays EUR rate
+http://localhost/CNB-cache/src/rate.php?currency=usd&age=1 - yesterday $ rate
 
 
 ## Struktura projektu

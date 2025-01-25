@@ -1,0 +1,18 @@
+Template: cnb-cache/reconfigure-webserver
+Type: multiselect
+Choices: apache2, lighttpd
+_Description: Web server to reconfigure automatically:
+ Please choose the web server that should be automatically configured
+ to run CNB Cache.
+
+Template: cnb-cache/restart-webserver
+Type: boolean
+Default: true
+_Description: Restart configured webserver automatically:
+ Or restart webserver by yourself.
+
+Template: cnb-cache/database-type
+Type: string
+Default: sqlite
+_Description: Database type:
+ Please choose the database type to use with CNB Cache.

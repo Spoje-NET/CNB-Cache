@@ -1,2 +1,3 @@
 #!/bin/bash
-php -f /usr/lib/cnb-tools/cnb-exchange-rate.php -- $@
+php -f /usr/lib/cnb-cache/cnb-exchange-rate.php -- "$@"
+exit $?

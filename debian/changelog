@@ -1,5 +1,6 @@
-cnb-tools (0.1.0) UNRELEASED; urgency=low
+cnb-cache (0.1.0) UNRELEASED; urgency=low
 
   * Initial release. Closes: #nnnn
+    <nnnn is the bug number of your ITP>
 
- -- Vítězslav Dvořák <info@vitexsoftware.cz>  Wed, 22 Jan 2025 00:44:37 +0100
+ -- Vítězslav Dvořák <info@vitexsoftware.cz>  Sat, 25 Jan 2025 15:56:33 +0100

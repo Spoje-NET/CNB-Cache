@@ -1,7 +1,7 @@
 <?php
 
 /**
- * CNB Tools - Phinx database adapter.
+ * CNB Cache - Phinx database adapter.
  *
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
  * @copyright  2021-2024 Vitex Software
@@ -40,7 +40,7 @@ $prefix = "/usr/lib/multiflexi/db/";
 $sqlOptions = [];
 
 if (strstr(\Ease\Shared::cfg('DB_CONNECTION'), 'sqlite')) {
-    $sqlOptions["database"] = "/var/lib/dbconfig-common/sqlite3/cnb-tools/" . basename(\Ease\Shared::cfg("DB_DATABASE"));
+    $sqlOptions["database"] = "/var/lib/dbconfig-common/sqlite3/cnb-cache/" . basename(\Ease\Shared::cfg("DB_DATABASE"));
 }
 
 $engine = new \Ease\SQL\Engine(null, $sqlOptions);

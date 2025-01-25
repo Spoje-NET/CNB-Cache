@@ -8,6 +8,11 @@
 %:
 	dh $@
 
+override_dh_clean:
+	dh_clean
+	rm -rf vendor composer.lock
+	rm -rf debian/tmp/
+
 #override_dh_auto_install:
 #       dh_auto_install -- prefix=/usr
 
@@ -15,13 +20,13 @@ override_dh_install:
 	mkdir -p debian/tmp/
 	jq '.version = "'`dpkg-parsechangelog | sed -n 's/^Version: //p'| sed 's/~.*//'`'"'  debian/conf/composer.json |sponge debian/tmp/composer.json
 	dh_install
-	sed -i -e 's/.\.\/vendor/\/var\/lib\/composer\/cnb-tools/g' debian/cnb-tools/usr/*/cnb-tools/*.php
-	sed -i -e 's/.\.\/vendor/\/var\/lib\/composer\/cnb-tools/g' debian/cnb-tools*/usr/lib/cnb-tools/*.php
-	sed -i -e 's/\.\.\/\.env/\/etc\/cnb-tools\/\.env/g' debian/cnb-tools/usr/lib/cnb-tools/phinx-adapter.php
-	mkdir -p                                                             debian/cnb-tools-sqlite/usr/lib/cnb-tools
-	cp debian/conf/.env.template                                         debian/cnb-tools-sqlite/usr/lib/cnb-tools
-	mkdir -p                                                             debian/cnb-tools-mysql/usr/lib/cnb-tools
-	cp debian/conf/.env.template                                         debian/cnb-tools-mysql/usr/lib/cnb-tools
-	mkdir -p                                                             debian/cnb-tools-pgsql/usr/lib/cnb-tools
-	cp debian/conf/.env.template                                         debian/cnb-tools-pgsql/usr/lib/cnb-tools
-	sed -i '/DB_DATABASE/c\DB_DATABASE=_DBC_DBNAME_'                     debian/cnb-tools-*sql/usr/lib/cnb-tools/.env.template
+	sed -i -e 's/.\.\/vendor/\/var\/lib\/composer\/cnb-cache/g' debian/cnb-cache/usr/*/cnb-cache/*.php
+	sed -i -e 's/.\.\/vendor/\/var\/lib\/composer\/cnb-cache/g' debian/cnb-cache*/usr/lib/cnb-cache/*.php
+	sed -i -e 's/\.\.\/\.env/\/etc\/cnb-cache\/\.env/g' debian/cnb-cache/usr/lib/cnb-cache/phinx-adapter.php
+	mkdir -p                                                             debian/cnb-cache-sqlite/usr/lib/cnb-cache
+	cp debian/conf/.env.template                                         debian/cnb-cache-sqlite/usr/lib/cnb-cache
+	mkdir -p                                                             debian/cnb-cache-mysql/usr/lib/cnb-cache
+	cp debian/conf/.env.template                                         debian/cnb-cache-mysql/usr/lib/cnb-cache
+	mkdir -p                                                             debian/cnb-cache-pgsql/usr/lib/cnb-cache
+	cp debian/conf/.env.template                                         debian/cnb-cache-pgsql/usr/lib/cnb-cache
+	sed -i '/DB_DATABASE/c\DB_DATABASE=_DBC_DBNAME_'                     debian/cnb-cache-*sql/usr/lib/cnb-cache/.env.template

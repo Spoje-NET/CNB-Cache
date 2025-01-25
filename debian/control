@@ -1,42 +1,42 @@
-Source: cnb-tools
+Source: cnb-cache
 Section: unknown
 Priority: optional
 Maintainer: Vítězslav Dvořák <info@vitexsoftware.cz>
 Build-Depends: debhelper-compat (= 13)
 Standards-Version: 4.5.1
-Homepage: https://github.com/Spoje-NET/CNB-Tools
+Homepage: https://github.com/Spoje-NET/CNB-cache
 Rules-Requires-Root: no
-Vcs-Git: https://github.com/Spoje-NET/CNB-Tools.git
-Vcs-Browser: https://github.com/Spoje-NET/CNB-Tools
+Vcs-Git: https://github.com/Spoje-NET/CNB-cache.git
+Vcs-Browser: https://github.com/Spoje-NET/CNB-cache
 
-Package: cnb-tools
+Package: cnb-cache
 Architecture: any
 Multi-Arch: foreign
 Depends: ${misc:Depends}, ${shlibs:Depends},
- php-vitexsoftware-ease-core (>=1.45),
  php-cli,
+ php-vitexsoftware-ease-core (>=1.45),
  php-vitexsoftware-ease-fluentpdo (>=1.3),
- cnb-tools-sqlite|cnb-tools-mysql|cnb-tools-pgsql,
+ cnb-cache-sqlite|cnb-cache-mysql|cnb-cache-pgsql,
  anacron, adduser (>= 3.11),
 Description: CNB Currency rate Cache
  Keep the history of specified currencies stored in
  SQL database.
 
-Package: cnb-tools-sqlite
+Package: cnb-cache-sqlite
 Multi-Arch: foreign
-Depends: ${misc:Depends},cnb-tools, dbconfig-sqlite3, php-sqlite3, sqlite3
-Conflicts: cnb-tools-mysql, cnb-tools-pgsql
+Depends: ${misc:Depends},cnb-cache, dbconfig-sqlite3, php-sqlite3, sqlite3
+Conflicts: cnb-cache-mysql, cnb-cache-pgsql
 Replaces: multi-flexibee-setup-sqlite
 Architecture: all
-Description: sqlite support for cnb tools
- Mandatory dependencies for use CNB Tools with SQLite database
+Description: sqlite support for cnb cache
+ Mandatory dependencies for use CNB cache with SQLite database
 
-Package: cnb-tools-mysql
+Package: cnb-cache-mysql
 Multi-Arch: foreign
-Depends: ${misc:Depends},cnb-tools, dbconfig-mysql, php-mysql, php-robmorgan-phinx|php-cakephp-phinx
-Conflicts: cnb-tools-sqlite, cnb-tools-pgsql
+Depends: ${misc:Depends},cnb-cache, dbconfig-mysql, php-mysql, php-robmorgan-phinx|php-cakephp-phinx
+Conflicts: cnb-cache-sqlite, cnb-cache-pgsql
 Replaces: multi-flexibee-setup-mysql
 Suggests: mariadb-server
 Architecture: all
-Description: mariadb support for cnb tools
- Mandatory dependencies for use CNB Tools with MySQL/MariaDB databas
+Description: mariadb support for cnb cache
+ Mandatory dependencies for use CNB cache with MySQL/MariaDB databas

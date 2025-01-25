@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 /**
- * This file is part of the CNBExchangeRate package
+ * This file is part of the CNBCache package
  *
- * https://github.com/Spoje-NET/CNB-Tools
+ * https://github.com/Spoje-NET/CNB-cache
  *
  * (c) Spoje.Net IT s.r.o. <https://spojenet.cz>
  *

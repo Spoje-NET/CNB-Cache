@@ -3,6 +3,7 @@ set -e
 
 case "$1" in
     remove|upgrade|deconfigure)
+        rm -f /usr/lib/cnb-cache/composer.lock
     ;;
 
     failed-upgrade)

@@ -1,0 +1,17 @@
+src/index.php                            usr/share/cnb-cache
+db/migrations/*				 usr/lib/cnb-cache/db/migrations
+#db/seeds/*				 usr/lib/cnb-cache/db/seeds
+debian/tmp/composer.json                 usr/lib/cnb-cache
+debian/conf/phinx-adapter.php	         usr/lib/cnb-cache
+
+src/SpojeNet/Cnb/ExchangeRate.php	 usr/lib/cnb-cache/
+
+debian/conf/cnb-cache.conf    		  etc/apache2/conf-available
+debian/conf/cnb-cache.service 		  etc/avahi/services
+bin/*					  usr/bin
+src/init.php					  usr/lib/cnb-cache
+src/update.php					  usr/lib/cnb-cache
+#debian/cz.spojenet.cnb-cache.metainfo.xml    usr/share/metainfo/
+#debian/cz.spojenet.cnb-cache.desktop         usr/share/applications/
+cnb-cache.svg                 usr/share/icons/hicolor/scalable/apps/
+example.env		      etc/cnb-cache

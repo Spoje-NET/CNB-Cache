@@ -1,5 +1,5 @@
 {
-  "name": "spojenet/cnbtools",
+  "name": "spojenet/cnbcache",
   "description": "CNB Exchange rate Cache",
   "type": "project",
   "require": {
@@ -13,12 +13,12 @@
     }
   ],
   "config": {
-    "vendor-dir": "/var/lib/composer/cnb-tools"
+    "vendor-dir": "/var/lib/composer/cnb-cache"
   },
   "minimum-stability": "dev",
   "autoload": {
     "psr-4": {
-      "SpojeNet\\Cnb\\": "/usr/lib/cnb-tools/"
+      "SpojeNet\\Cnb\\": "/usr/lib/cnb-cache/"
     }
   },
   "repositories": [
