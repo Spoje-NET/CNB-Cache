@@ -5,7 +5,7 @@ case "$1" in
 purge | remove | disappear)
     rm -rf /var/lib/composer/cnb-cache
     ;;
-upgrade)
+upgrade|abort-upgrade|failed-upgrade)
     ;;
 
 *)
