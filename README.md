@@ -2,6 +2,9 @@
 
 ![cnb-cache](cnb-cache.svg?raw=true)
 
+Store daily currency rates in SQL database for given time.
+
+Provide simple API like web interface for stored rates obtaining.
 
 Installation
 ------------
@@ -18,7 +21,7 @@ sudo apt update
 sudo apt install cnb-cache-DATABASE
 ```
 
-database can be `mysql` or `sqlite`
+database can be `mysql` or `sqlite` 
 
 
 Support the apache2 and lighthttpd web servers:
@@ -36,6 +39,11 @@ Then set the days to keep the cache
 And finally the cache is initialized:
 
 ![Initialization](init.png?raw=true)
+
+
+Data stored in database:
+
+![Database](db.png?raw=true)
 
 Final configuration is stored in `/etc/cnb-cache/cnb-cache.env` file
 
