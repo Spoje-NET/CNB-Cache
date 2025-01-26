@@ -55,4 +55,16 @@ After installation the currencies listing is available on the `/cnb-cache/` path
 * http://localhost/cnb-cache/?currency=eur - todays EUR rate
 * http://localhost/cnb-cache/?currency=USD&age=yesterday - yesterday $ rate
 
+```json
+{
+  "id": 6,
+  "date": "2025-01-24",
+  "currency": "dolar",
+  "amount": 1,
+  "code": "USD",
+  "rate": 23.958,
+  "age": 2
+}
+```
+
 The systemd-crond service is started and the cache is updated every day at 0:01 AM
