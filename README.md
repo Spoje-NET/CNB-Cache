@@ -47,11 +47,12 @@ Data stored in database:
 
 Final configuration is stored in `/etc/cnb-cache/cnb-cache.env` file
 
+
+### Data Obtaining
+
 After installation the currencies listing is available on the `/cnb-cache/` path.
 
-
-http://localhost/cnb-cache/?currency=eur - todays EUR rate
-http://localhost/cnb-cache/?currency=USD&age=yesterday - yesterday $ rate
-
+* http://localhost/cnb-cache/?currency=eur - todays EUR rate
+* http://localhost/cnb-cache/?currency=USD&age=yesterday - yesterday $ rate
 
 The systemd-crond service is started and the cache is updated every day at 0:01 AM
