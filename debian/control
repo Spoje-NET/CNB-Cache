@@ -12,11 +12,11 @@ Vcs-Browser: https://github.com/Spoje-NET/CNB-cache
 Package: cnb-cache
 Architecture: all
 Multi-Arch: foreign
+Pre-Depends: cnb-cache-sqlite|cnb-cache-mysql|cnb-cache-pgsql 
 Depends: ${misc:Depends}, ${shlibs:Depends},
  php-cli,
  php-vitexsoftware-ease-core (>=1.45),
  php-vitexsoftware-ease-fluentpdo (>=1.3),
- cnb-cache-sqlite|cnb-cache-mysql|cnb-cache-pgsql,
  anacron, adduser (>= 3.11),
 Description: CNB Currency rate Cache
  Keep the history of specified currencies stored in
