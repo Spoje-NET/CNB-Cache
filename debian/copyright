@@ -33,11 +33,27 @@ Files: bin/cnb-exchange-rate
 Copyright: 2025 vitezslav.dvorak@spojenet.cz
 License: MIT
 
+Files: bin/cnb-cache-init
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: bin/cnb-cache-update
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
 Files: cnb-cache.svg
 Copyright: 2025 vitezslav.dvorak@spojenet.cz
 License: MIT
 
 Files: composer.json
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: currency-chooser.png
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: daystokeep.png
 Copyright: 2025 vitezslav.dvorak@spojenet.cz
 License: MIT
 
@@ -149,6 +165,46 @@ Files: example.env
 Copyright: 2025 vitezslav.dvorak@spojenet.cz
 License: MIT
 
+Files: init.png
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: nbproject/configs/Update.properties
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: nbproject/configs/init.properties
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: nbproject/private/config.properties
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: nbproject/private/configs/Update.properties
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: nbproject/private/configs/init.properties
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: nbproject/private/private.properties
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: nbproject/private/private.properties
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: nbproject/project.properties
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: nbproject/project.xml
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
 Files: phinx-adapter.php
 Copyright: 2025 vitezslav.dvorak@spojenet.cz
 License: MIT
@@ -178,5 +234,89 @@ Copyright: 2025 vitezslav.dvorak@spojenet.cz
 License: MIT
 
 Files: src/update.php
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: debian/Jenkinsfile
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: debian/cnb-cache copy 3.postinst
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: debian/cnb-cache-mysql.config
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: debian/cnb-cache-mysql.postinst
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: debian/cnb-cache-mysql.postrm
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: debian/cnb-cache-mysql.prerm
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: debian/cnb-cache-sqlite.config
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: debian/cnb-cache-sqlite.dirs
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: debian/cnb-cache-sqlite.postinst
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: debian/cnb-cache-sqlite.postrm
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: debian/cnb-cache-sqlite.prerm
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: debian/cnb-cache.config
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: debian/cnb-cache.dirs
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: debian/cnb-cache.install
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: debian/cnb-cache.links
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: debian/cnb-cache.postinst
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: debian/cnb-cache.postrm
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: debian/cnb-cache.prerm
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: debian/cnb-cache.service
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: debian/cnb-cache.timer
+Copyright: 2025 vitezslav.dvorak@spojenet.cz
+License: MIT
+
+Files: webservers.png
 Copyright: 2025 vitezslav.dvorak@spojenet.cz
 License: MIT
