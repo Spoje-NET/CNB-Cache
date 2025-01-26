@@ -45,4 +45,4 @@ purge: ## Clean Uninstall debian package
 
 .PHONY: probe
 probe: ## Perform test install
-	sudo DEBCONF_DEBUG=developer apt install ../cnb-cache_0.1.0_all.deb ../cnb-cache-sqlite_0.1.0_all.deb 
+	sudo DEBCONF_DEBUG=0 apt install ../cnb-cache_0.1.0_all.deb ../cnb-cache-sqlite_0.1.0_all.deb 
