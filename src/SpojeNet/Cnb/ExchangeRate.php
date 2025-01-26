@@ -20,9 +20,10 @@ namespace SpojeNet\Cnb;
  *
  * @author Vitex <info@vitexsoftware.cz>
  */
-class ExchangeRate extends \Ease\SQL\Engine
-{
+class ExchangeRate extends \Ease\SQL\Engine {
+
     public static string $baseUrl = 'https://www.cnb.cz/cs/financni_trhy/devizovy_trh/kurzy_devizoveho_trhu/denni_kurz.txt';
+    private int $keepdays = 3;
     private int $httpcode = 0;
 
     /**
@@ -30,18 +31,25 @@ class ExchangeRate extends \Ease\SQL\Engine
      */
     private array $currencies = [];
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->setMyTable('rates');
         $this->setObjectName();
         $currencies = explode(',', str_replace(' ', '', \Ease\Shared::cfg('CURRENCIES', 'EUR')));
         $this->currencies = array_combine($currencies, $currencies);
+        $this->keepdays = intval(\Ease\Shared::cfg('KEEP_DAYS', 3));
         parent::__construct();
     }
 
-    public function exchangeRateRaw(string $datum): string
-    {
-        $url = self::$baseUrl.'?date='.date('d.m.Y', strtotime($datum));
+    public function getCurrencyList(): array {
+        return $this->currencies;
+    }
+
+    public function getKeepDays(): int {
+        return $this->keepdays;
+    }
+
+    public function exchangeRateRaw(string $datum): string {
+        $url = self::$baseUrl . '?date=' . date('d.m.Y', strtotime($datum));
 
         $ch = curl_init();
         curl_setopt($ch, \CURLOPT_URL, $url);
@@ -56,10 +64,9 @@ class ExchangeRate extends \Ease\SQL\Engine
     /**
      * Convert CNB CSV to Array.
      *
-     * @return array
+     * @return array<string, array<string, string>>
      */
-    public function cnbCsv2Data(string $ratesRaw)
-    {
+    public function cnbCsv2Data(string $ratesRaw) {
         $data = explode("\n", $ratesRaw);
 
         unset($data[0], $data[1]);
@@ -85,8 +92,7 @@ class ExchangeRate extends \Ease\SQL\Engine
      *
      * @return bool
      */
-    public function storeDay(int $dayBack = 0): void
-    {
+    public function storeDay(int $dayBack = 0): void {
         $datum = self::dateBeforeDays($dayBack);
 
         foreach ($this->cnbCsv2Data($this->exchangeRateRaw($datum)) as $currencyData) {
@@ -102,21 +108,21 @@ class ExchangeRate extends \Ease\SQL\Engine
         }
     }
 
-    public function renderDay(): void
-    {
+    public function dropOlder(int $days): void {
+        if($this->dropFromSQL(['date' => ['<' => self::dateBeforeDays($days)]]) > 0){
+            $this->addStatusMessage(sprintf(_('Dropped rates older than %d days'), $days), 'success');
+        }
     }
 
-    public function shiftDays(): void
-    {
+    public function shiftDays(): void {
+        $this->dropOlder($this->getKeepDays());
     }
 
-    public function getRateInfo($currency, $age): array
-    {
+    public function getRateInfo($currency, $age): array {
         return $this->getColumnsFromSQL(['*'], ['code' => $currency, 'date' => self::dateBeforeDays($age)]);
     }
 
-    public static function dateBeforeDays(int $daysBack): string
-    {
-        return date('Y-m-d', strtotime('-'.(string) $daysBack.' day'));
+    public static function dateBeforeDays(int $daysBack): string {
+        return date('Y-m-d', strtotime('-' . (string) $daysBack . ' day'));
     }
 }

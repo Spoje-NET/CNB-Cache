@@ -1,4 +1,5 @@
 src/index.php                            usr/share/cnb-cache
+cnb-cache.svg                            usr/share/cnb-cache
 db/migrations/*				 usr/lib/cnb-cache/db/migrations
 #db/seeds/*				 usr/lib/cnb-cache/db/seeds
 debian/tmp/composer.json                 usr/lib/cnb-cache

@@ -3,31 +3,47 @@
 ![cnb-cache](cnb-cache.svg?raw=true)
 
 
-http://localhost/CNB-cache/src/rate.php?currency=eur - todays EUR rate
-http://localhost/CNB-cache/src/rate.php?currency=usd&age=1 - yesterday $ rate
+Installation
+------------
 
 
-## Struktura projektu
+```shell
+sudo apt install lsb-release wget apt-transport-https bzip2
 
-- **src/app.php**: Hlavní logika aplikace, která načítá potřebné knihovny, nastavuje připojení k databázi MultiFlexi, získává kurzovní lístek z API ČNB a ukládá data do JSON souboru.
-- **vendor/**: Adresář obsahující závislosti projektu spravované pomocí Composeru.
-- **composer.json**: Konfigurační soubor pro Composer, obsahující informace o závislostech a dalších nastaveních.
 
-## Instalace
+wget -qO- https://repo.vitexsoftware.com/keyring.gpg | sudo tee /etc/apt/trusted.gpg.d/vitexsoftware.gpg
+echo "deb [signed-by=/etc/apt/trusted.gpg.d/vitexsoftware.gpg]  https://repo.vitexsoftware.com  $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/vitexsoftware.list
+sudo apt update
 
-1. Nainstalujte MultiFlexi podle dokumentace na GitHubu: [MultiFlexi GitHub](https://github.com/VitexSoftware/MultiFlexi).
-2. Nainstalujte závislosti pomocí Composeru:
-   ```
-   composer install
-   ```
-
-## Spuštění aplikace
-
-Ujistěte se, že máte správně nastavené prostředí a databázi. Poté aplikaci spusťte pomocí příkazu:
-```
-php src/app.php
+sudo apt install cnb-cache-DATABASE
 ```
 
-## Použití
+database can be `mysql` or `sqlite`
 
-Před spuštěním aplikace upravte proměnné `$datum` a `$mena` v souboru `src/app.php` podle vašich potřeb. Aplikace stáhne kurzovní lístek pro zadané datum a měnu a uloží jej do souboru `kurzovni_listek.json`.
+
+Support the apache2 and lighthttpd web servers:
+
+![Web Servers](webservers.png?raw=true)
+
+First Configure the currencies to be cached
+
+![Currency Chooser](currency-chooser.png?raw=true)
+
+Then set the days to keep the cache
+
+![Days to Keep](daystokeep.png?raw=true)
+
+And finally the cache is initialized:
+
+![Initialization](init.png?raw=true)
+
+Final configuration is stored in `/etc/cnb-cache/cnb-cache.env` file
+
+After installation the currencies listing is available on the `/cnb-cache/` path.
+
+
+http://localhost/cnb-cache/?currency=eur - todays EUR rate
+http://localhost/cnb-cache/?currency=USD&age=yesterday - yesterday $ rate
+
+
+The systemd-crond service is started and the cache is updated every day at 0:01 AM

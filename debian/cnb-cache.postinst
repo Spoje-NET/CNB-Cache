@@ -156,6 +156,21 @@ configure)
         fi
     fi
 
+    db_get cnb-cache/keepdays || true
+    keepdays="$RET"
+    db_go || true
+
+    echo "Number of days to keep cache: $keepdays"
+
+    # Update or populate KEEP_DAYS key in /etc/cnb-cache/cnb-cache.env with $keepdays
+    if [ -n "$keepdays" ]; then
+        if grep -q "^KEEP_DAYS=" /etc/cnb-cache/cnb-cache.env; then
+            sed -i "s/^KEEP_DAYS=.*/KEEP_DAYS=\"$keepdays\"/" /etc/cnb-cache/cnb-cache.env
+        else
+            echo "KEEP_DAYS=\"$keepdays\"" >>/etc/cnb-cache/cnb-cache.env
+        fi
+    fi
+
     echo "Initializing cache"
 
 

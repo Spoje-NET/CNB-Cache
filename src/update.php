@@ -27,5 +27,9 @@ Shared::init(
 );
 
 $engine = new \SpojeNet\Cnb\ExchangeRate();
+if (\Ease\Shared::cfg('APP_DEBUG')) {
+    $engine->logBanner();
+}
 
 $engine->storeDay(0);
+$engine->shiftDays();

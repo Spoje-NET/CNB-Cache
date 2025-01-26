@@ -25,11 +25,37 @@ Shared::init(
 $engine = new \SpojeNet\Cnb\ExchangeRate();
 
 $currency = $_GET['currency'] ?? null;
-$age = isset($_GET['age']) ? (int) $_GET['age'] : 0;
+$when = $_GET['currency'] ?? null;
+
+switch ($when) {
+    case 'yesterday':
+        $age = 1;
+
+        break;
+    case 'beforeyesterday':
+        $age = 2;
+        break;
+    default:
+        $age = isset($_GET['age']) ? (int) $_GET['age'] : 0;
+        
+        break;
+}
 
 if ($currency === null) {
-    http_response_code(400);
-    echo json_encode(['error' => 'Currency parameter is required']);
+    http_response_code(404);
+    $currencyList = $engine->getCurrencyList();
+
+    echo '<html><head><title>CNB Cache</title></head><body>';
+    echo '<img src="cnb-cache.svg" style="width: 100px;" align="right">';
+    echo '<ul>';
+    foreach ($currencyList as $currency) {
+        echo '<li><strong><a href="?currency='.$currency.'">' . $currency . '</a></strong>&nbsp;';
+        echo '<a href="?currency='.$currency.'&when=yesterday">yesterday</a>&nbsp;';
+        echo '<small><a href="?currency='.$currency.'&when=beforeyesterday">beforeyesterday</a></small>';
+        echo '</li>';
+    }
+    echo '</ul>';
+    echo '</body></html>';
 
     exit;
 }
