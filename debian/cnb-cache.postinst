@@ -2,6 +2,8 @@
 set -e
 #set -x
 
+composer-debian cnb-cache
+
 
 . /usr/share/debconf/confmodule
 
@@ -143,7 +145,19 @@ case "$1" in
         done
     fi
 
-    composer-debian cnb-cache
+    db_title "Choose currencies to cache"
+    db_get cnb-cache/currencies || true
+    currencies="$RET"
+
+    # Update or populate CURRENCIES key in /etc/cnb-cache/cnb-cache.env with $currencies
+    if [ -n "$currencies" ]; then
+        if grep -q "^CURRENCIES=" /etc/cnb-cache/cnb-cache.env; then
+            sed -i "s/^CURRENCIES=.*/CURRENCIES=\"$currencies\"/" /etc/cnb-cache/cnb-cache.env
+        else
+            echo "CURRENCIES=\"$currencies\"" >> /etc/cnb-cache/cnb-cache.env
+        fi
+    fi
+
     cnb-cache-init
 
     ;;

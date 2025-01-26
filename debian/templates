@@ -1,18 +1,19 @@
 Template: cnb-cache/reconfigure-webserver
 Type: multiselect
 Choices: apache2, lighttpd
-_Description: Web server to reconfigure automatically:
+ Description: Web server to reconfigure automatically:
  Please choose the web server that should be automatically configured
  to run CNB Cache.
 
 Template: cnb-cache/restart-webserver
 Type: boolean
 Default: true
-_Description: Restart configured webserver automatically:
+ Description: Restart configured webserver automatically:
  Or restart webserver by yourself.
 
-Template: cnb-cache/database-type
-Type: string
-Default: sqlite
-_Description: Database type:
- Please choose the database type to use with CNB Cache.
+Template: cnb-cache/currencies
+Type: multiselect
+Default: USD, EUR
+Choices: AUD, BRL, BGN, CNY, DKK, EUR, PHP, HKD, INR, IDR, ISK, ILS, JPY, ZAR, CAD, KRW, HUF, MYR, MXN, XDR, NOK, NZD, PLN, RON, SGD, SEK, CHF, THB, TRY, USD, GBP
+ Description: Currencies to cache:
+ Please choose the currencies that should be cached.
