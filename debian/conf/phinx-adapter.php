@@ -31,8 +31,8 @@ include_once '/usr/share/php/EaseCore/Exception.php';
 include_once '/usr/share/php/EaseFluentPDO/Orm.php';
 include_once '/usr/share/php/EaseFluentPDO/Engine.php';
 
-if (file_exists('/etc/multiflexi/multiflexi.env')) {
-    \Ease\Shared::instanced()->loadConfig('/etc/multiflexi/multiflexi.env', true);
+if (file_exists('/etc/cnb-cache/cnb-cache.env')) {
+    \Ease\Shared::instanced()->loadConfig('/etc/cnb-cache/cnb-cache.env', true);
 }
 
 $prefix = "/usr/lib/multiflexi/db/";
