@@ -17,7 +17,7 @@ use Ease\Shared;
 
 require_once '../vendor/autoload.php';
 
-// Nastavení MultiFlexi
+define('APP_NAME', 'CNB Cache Init');
 
 $options = getopt('e::', ['environment::']);
 
@@ -27,6 +27,10 @@ Shared::init(
 );
 
 $engine = new \SpojeNet\Cnb\ExchangeRate();
+
+if(\Ease\Shared::cfg('APP_DEBUG')){
+ $engine->logBanner();
+}
 
 $engine->storeDay(0);
 $engine->storeDay(1);

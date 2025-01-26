@@ -34,7 +34,7 @@ class ExchangeRate extends \Ease\SQL\Engine
     {
         $this->setMyTable('rates');
         $this->setObjectName();
-        $currencies = explode(',', \Ease\Shared::cfg('CURRENCIES', 'EUR'));
+        $currencies = explode(',', str_replace(' ', '', \Ease\Shared::cfg('CURRENCIES', 'EUR')));
         $this->currencies = array_combine($currencies, $currencies);
         parent::__construct();
     }

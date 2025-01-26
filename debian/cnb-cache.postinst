@@ -1,9 +1,7 @@
 #!/bin/sh
 set -e
-#set -x
 
 composer-debian cnb-cache
-
 
 . /usr/share/debconf/confmodule
 
@@ -49,11 +47,8 @@ apache_install() {
     fi
 }
 
-
-
 case "$1" in
-    configure)
-
+configure)
 
     # If the package has default file it could be sourced, so that
     # the local admin can overwrite the defaults
@@ -109,7 +104,9 @@ case "$1" in
         fi
     fi
 
-    db_title "Reconfigure web server"
+    echo "Reconfigurning Web Server"
+
+
     db_get cnb-cache/reconfigure-webserver || true
     webservers="$RET"
     restart=""
@@ -128,10 +125,9 @@ case "$1" in
         restart="$restart $webserver"
     done
 
-    db_title "Restarting web server"
     db_get cnb-cache/restart-webserver || true
     res="$RET"
-    db_stop || true
+    db_go || true
     if [ "$res" = "true" ]; then
         for webserver in $restart; do
             webserver=${webserver%,}
@@ -145,32 +141,35 @@ case "$1" in
         done
     fi
 
-    db_title "Choose currencies to cache"
     db_get cnb-cache/currencies || true
     currencies="$RET"
+    db_go || true
+
+    echo "Currencies to cache: $currencies"
 
     # Update or populate CURRENCIES key in /etc/cnb-cache/cnb-cache.env with $currencies
     if [ -n "$currencies" ]; then
         if grep -q "^CURRENCIES=" /etc/cnb-cache/cnb-cache.env; then
             sed -i "s/^CURRENCIES=.*/CURRENCIES=\"$currencies\"/" /etc/cnb-cache/cnb-cache.env
         else
-            echo "CURRENCIES=\"$currencies\"" >> /etc/cnb-cache/cnb-cache.env
+            echo "CURRENCIES=\"$currencies\"" >>/etc/cnb-cache/cnb-cache.env
         fi
     fi
 
-    cnb-cache-init
+    echo "Initializing cache"
+
+
+    APP_DEBUG=True cnb-cache-init
 
     ;;
 
-    abort-upgrade|abort-remove|abort-deconfigure)
-    ;;
+abort-upgrade | abort-remove | abort-deconfigure) ;;
 
-    *)
-        echo "postinst called with unknown argument \`$1'" >&2
-        exit 1
+*)
+    echo "postinst called with unknown argument \`$1'" >&2
+    exit 1
     ;;
 esac
-
 
 #DEBHELPER#
 

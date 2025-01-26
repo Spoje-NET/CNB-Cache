@@ -1,5 +1,6 @@
 Template: cnb-cache/reconfigure-webserver
 Type: multiselect
+Default: apache2
 Choices: apache2, lighttpd
  Description: Web server to reconfigure automatically:
  Please choose the web server that should be automatically configured

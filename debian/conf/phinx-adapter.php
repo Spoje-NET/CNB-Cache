@@ -35,7 +35,7 @@ if (file_exists('/etc/cnb-cache/cnb-cache.env')) {
     \Ease\Shared::instanced()->loadConfig('/etc/cnb-cache/cnb-cache.env', true);
 }
 
-$prefix = "/usr/lib/multiflexi/db/";
+$prefix = "/usr/lib/cnb-cache/db/";
 
 $sqlOptions = [];
 

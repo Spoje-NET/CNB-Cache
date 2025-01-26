@@ -34,3 +34,15 @@ migration: ## Run database migrations
 .PHONY: newmigration
 newmigration: ## Prepare new Database Migration
 	read -p "Enter CamelCase migration name : " migname ; cd src ; ../vendor/bin/phinx create $$migname -c ../phinx-adapter.php ; cd ..
+
+.PHONY: deb
+deb: ## Make Debian package
+	debuild -us -uc
+
+.PHONY: purge
+purge: ## Clean Uninstall debian package
+	sudo apt -y purge cnb-cache cnb-cache-mysql cnb-cache-sqlite
+
+.PHONY: probe
+probe: ## Perform test install
+	sudo DEBCONF_DEBUG=developer apt install ../cnb-cache_0.1.0_all.deb ../cnb-cache-sqlite_0.1.0_all.deb 
