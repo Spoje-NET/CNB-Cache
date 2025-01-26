@@ -48,7 +48,7 @@ if ($currency === null) {
     $currencyList = $engine->getCurrencyList();
 
     echo '<html><head><title>CNB Cache</title></head><body>';
-    echo '<img src="cnb-cache.svg" style="width: 100px;" align="right">';
+    echo '<a href="https://github.com/Spoje-NET/CNB-Cache"><img src="cnb-cache.svg" style="width: 100px;" align="right"></a>';
     echo '<ul>';
 
     foreach ($currencyList as $currency) {
