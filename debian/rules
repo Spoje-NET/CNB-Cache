@@ -21,8 +21,8 @@ override_dh_install:
 	jq '.version = "'`dpkg-parsechangelog | sed -n 's/^Version: //p'| sed 's/~.*//'`'"'  debian/conf/composer.json |sponge debian/tmp/composer.json
 	dh_install
 	sed -i -e 's/.\.\/vendor/\/var\/lib\/composer\/cnb-cache/g' debian/cnb-cache/usr/*/cnb-cache/*.php
+	sed -i -e 's/\.\.\/\.env/\/etc\/cnb-cache\/cnb-cache\.env/g' debian/cnb-cache/usr/*/cnb-cache/*.php
 	sed -i -e 's/.\.\/vendor/\/var\/lib\/composer\/cnb-cache/g' debian/cnb-cache*/usr/lib/cnb-cache/*.php
-	sed -i -e 's/\.\.\/\.env/\/etc\/cnb-cache\/\.env/g' debian/cnb-cache/usr/lib/cnb-cache/phinx-adapter.php
 	mkdir -p                                                             debian/cnb-cache-sqlite/usr/lib/cnb-cache
 	cp debian/conf/.env.template                                         debian/cnb-cache-sqlite/usr/lib/cnb-cache
 	mkdir -p                                                             debian/cnb-cache-mysql/usr/lib/cnb-cache

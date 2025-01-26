@@ -143,6 +143,8 @@ case "$1" in
         done
     fi
 
+    cnb-cache-init
+
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

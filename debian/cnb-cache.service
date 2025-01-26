@@ -1,0 +1,15 @@
+# This service unit is for cnb-cache timer units
+# By Vítězslav Dvořák
+# Licensed under MIT
+#
+
+[Unit]
+Description=Logs system statistics to the systemd journal
+Wants=cnb-cache.timer
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/cnb-cache-update
+
+[Install]
+WantedBy=multi-user.target

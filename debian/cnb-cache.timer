@@ -1,0 +1,9 @@
+[Unit]
+Description=Run cnb-cache-update every minute
+
+[Timer]
+OnCalendar=00:01
+Persistent=true
+
+[Install]
+WantedBy=timers.target
