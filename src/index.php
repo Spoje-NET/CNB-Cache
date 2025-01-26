@@ -25,7 +25,7 @@ Shared::init(
 $engine = new \SpojeNet\Cnb\ExchangeRate();
 
 $currency = $_GET['currency'] ?? null;
-$when = $_GET['currency'] ?? null;
+$when = $_GET['when'] ?? null;
 
 switch ($when) {
     case 'yesterday':

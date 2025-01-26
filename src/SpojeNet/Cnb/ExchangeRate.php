@@ -125,7 +125,7 @@ class ExchangeRate extends \Ease\SQL\Engine {
         $rateInfo = $this->getColumnsFromSQL(['*'], ['code' => $currency, 'date' => self::dateBeforeDays($age)]);
         
         if($rateInfo){
-            $result = $rateInfo;
+            $result = $rateInfo[0];
         } else {
             $result['message'] = 'no record for '. self::dateBeforeDays($age);
         }
@@ -135,6 +135,6 @@ class ExchangeRate extends \Ease\SQL\Engine {
     }
 
     public static function dateBeforeDays(int $daysBack): string {
-        return date('Y-m-d', strtotime('-' . (string) $daysBack . ' day'));
+        return date('Y-m-d', $daysBack ? strtotime('-' . (string) $daysBack . ' day') : null);
     }
 }
