@@ -2,7 +2,8 @@
 set -e
 
 case "$1" in
-    purge|remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
+    purge|remove|disappear)
+	rm -rf	/var/lib/composer/cnb-cache
     ;;
 
     *)

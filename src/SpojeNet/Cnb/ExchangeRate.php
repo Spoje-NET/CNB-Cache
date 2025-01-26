@@ -127,7 +127,7 @@ class ExchangeRate extends \Ease\SQL\Engine {
         if($rateInfo){
             $result = $rateInfo;
         } else {
-            $result['message'] = 'no record for '. self::dateBeforeDays($age)];
+            $result['message'] = 'no record for '. self::dateBeforeDays($age);
         }
         
         $result['age'] = $age;
