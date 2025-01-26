@@ -11,6 +11,56 @@ case "$1" in
     configure)
 
 
+    # Sane defaults:
+
+    [ -z "$SERVER_HOME" ] && SERVER_HOME=/var/lib/cnb-cache
+    [ -z "$SERVER_USER" ] && SERVER_USER=cnb-cache
+    [ -z "$SERVER_NAME" ] && SERVER_NAME="cnb-cache"
+    [ -z "$SERVER_GROUP" ] && SERVER_GROUP=cnb-cache
+
+    # Groups that the user will be added to, if undefined, then none.
+    ADDGROUP="cnb-cache"
+
+    # create user to avoid running server as root
+    # 1. create group if not existing
+    if ! getent group | grep -q "^$SERVER_GROUP:"; then
+        echo -n "Adding group $SERVER_GROUP.."
+        addgroup --quiet --system "$SERVER_GROUP" 2>/dev/null || true
+        echo "..done"
+    fi
+    # 2. create homedir if not existing
+    test -d "$SERVER_HOME" || mkdir "$SERVER_HOME"
+    # 3. create user if not existing
+    if ! getent passwd | grep -q "^$SERVER_USER:"; then
+        echo -n "Adding system user $SERVER_USER.."
+        adduser --quiet \
+            --system \
+            --ingroup "$SERVER_GROUP" \
+            --home /var/lib/cnb-cache \
+            --disabled-password \
+            "$SERVER_USER" 2>/dev/null || true
+        echo "..done"
+    fi
+    # 4. adjust passwd entry
+    usermod -c "$SERVER_NAME" \
+        -d "$SERVER_HOME" \
+        -g "$SERVER_GROUP" \
+        "$SERVER_USER"
+    # 5. adjust file and directory permissions
+    if ! dpkg-statoverride --list "$SERVER_HOME" >/dev/null; then
+        chown -R "$SERVER_USER":adm "$SERVER_HOME"
+        chmod u=rwx,g=rxs,o= "$SERVER_HOME"
+    fi
+    # 6. Add the user to the ADDGROUP group
+    if test -n $ADDGROUP; then
+        if ! groups "$SERVER_USER" | cut -d: -f2 |
+            grep -qw $ADDGROUP; then
+            adduser "$SERVER_USER" $ADDGROUP
+        fi
+    fi
+
+
+
     if [ -f /usr/share/dbconfig-common/dpkg/postinst.mysql ]; then
         . /usr/share/dbconfig-common/dpkg/postinst.mysql
         # shellcheck disable=SC2034
@@ -18,11 +68,11 @@ case "$1" in
         # shellcheck disable=SC2034
         dbc_generate_include=template:/etc/cnb-cache/cnb-cache.env
         # shellcheck disable=SC2034
-        dbc_generate_include_owner="root:www-data"
+        dbc_generate_include_owner="root:cnb-cache"
         # shellcheck disable=SC2034
         dbc_generate_include_perms="664"
         # shellcheck disable=SC2034
-        dbc_dbfile_owner="www-data:www-data"
+        dbc_dbfile_owner="cnb-cache:cnb-cache"
         # shellcheck disable=SC2034
         dbc_dbfile_perms="0664"
         # shellcheck disable=SC2034
@@ -39,7 +89,7 @@ case "$1" in
         phinx migrate -c /usr/lib/cnb-cache/phinx-adapter.php
 
         if [ -f /var/lib/cnb-cache/cnb-cache ]; then
-            chown root:www-data /var/lib/cnb-cache
+            chown root:cnb-cache /var/lib/cnb-cache
             chmod ug+rw /var/lib/cnb-cache
         fi
 
