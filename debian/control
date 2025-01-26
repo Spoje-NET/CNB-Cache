@@ -10,7 +10,7 @@ Vcs-Git: https://github.com/Spoje-NET/CNB-cache.git
 Vcs-Browser: https://github.com/Spoje-NET/CNB-cache
 
 Package: cnb-cache
-Architecture: any
+Architecture: all
 Multi-Arch: foreign
 Depends: ${misc:Depends}, ${shlibs:Depends},
  php-cli,
