@@ -34,10 +34,12 @@ switch ($when) {
         break;
     case 'beforeyesterday':
         $age = 2;
+
         break;
+
     default:
         $age = isset($_GET['age']) ? (int) $_GET['age'] : 0;
-        
+
         break;
 }
 
@@ -48,12 +50,14 @@ if ($currency === null) {
     echo '<html><head><title>CNB Cache</title></head><body>';
     echo '<img src="cnb-cache.svg" style="width: 100px;" align="right">';
     echo '<ul>';
+
     foreach ($currencyList as $currency) {
-        echo '<li><strong><a href="?currency='.$currency.'">' . $currency . '</a></strong>&nbsp;';
+        echo '<li><strong><a href="?currency='.$currency.'">'.$currency.'</a></strong>&nbsp;';
         echo '<a href="?currency='.$currency.'&when=yesterday">yesterday</a>&nbsp;';
         echo '<small><a href="?currency='.$currency.'&when=beforeyesterday">beforeyesterday</a></small>';
         echo '</li>';
     }
+
     echo '</ul>';
     echo '</body></html>';
 

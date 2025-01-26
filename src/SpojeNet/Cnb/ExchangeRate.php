@@ -103,6 +103,8 @@ class ExchangeRate extends \Ease\SQL\Engine {
                     if ($this->insertToSQL($currencyData)) {
                         $this->addStatusMessage(sprintf(_('Stored: %s for %s'), $currencyData['code'], $currencyData['date']), 'success');
                     }
+                } else {
+                    $this->addStatusMessage(sprintf(_('Already present: %s for %s'), $currencyData['code'], $currencyData['date']), 'warning');
                 }
             }
         }
@@ -119,7 +121,17 @@ class ExchangeRate extends \Ease\SQL\Engine {
     }
 
     public function getRateInfo($currency, $age): array {
-        return $this->getColumnsFromSQL(['*'], ['code' => $currency, 'date' => self::dateBeforeDays($age)]);
+        
+        $rateInfo = $this->getColumnsFromSQL(['*'], ['code' => $currency, 'date' => self::dateBeforeDays($age)]);
+        
+        if($rateInfo){
+            $result = $rateInfo;
+        } else {
+            $result['message'] = 'no record for '. self::dateBeforeDays($age)];
+        }
+        
+        $result['age'] = $age;
+        return $result ;
     }
 
     public static function dateBeforeDays(int $daysBack): string {

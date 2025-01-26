@@ -27,6 +27,7 @@ Shared::init(
 );
 
 $engine = new \SpojeNet\Cnb\ExchangeRate();
+
 if (\Ease\Shared::cfg('APP_DEBUG')) {
     $engine->logBanner();
 }
