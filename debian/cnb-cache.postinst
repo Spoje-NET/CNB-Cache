@@ -174,7 +174,7 @@ configure)
     echo "Initializing cache"
 
 
-    APP_DEBUG=True cnb-cache-init
+    APP_DEBUG=True cnb-cache-init || true
 
     ;;
 
