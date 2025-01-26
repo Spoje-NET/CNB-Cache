@@ -12,7 +12,7 @@ Vcs-Browser: https://github.com/Spoje-NET/CNB-cache
 Package: cnb-cache
 Architecture: all
 Multi-Arch: foreign
-Pre-Depends: cnb-cache-sqlite|cnb-cache-mysql|cnb-cache-pgsql 
+Recommends: cnb-cache-sqlite|cnb-cache-mysql|cnb-cache-pgsql
 Depends: ${misc:Depends}, ${shlibs:Depends},
  php-cli,
  php-vitexsoftware-ease-core (>=1.45),
