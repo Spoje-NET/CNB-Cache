@@ -35,6 +35,11 @@ configure)
     cat /etc/cnb-cache/cnb-cache.env
     echo "############################"
 
+    if [ ! -f /var/lib/dbconfig-common/sqlite3/cnb-cache/cnb-cache ]; then
+        install -o cnb-cache -g cnb-cache -m 0644 /dev/null /var/lib/dbconfig-common/sqlite3/cnb-cache/cnb-cache
+    fi
+
+
     phinx migrate -c /usr/lib/cnb-cache/phinx-adapter.php
 
     if [ -f /var/lib/cnb-cache/cnb-cache ]; then
