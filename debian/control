@@ -24,7 +24,7 @@ Description: CNB Currency rate Cache
 
 Package: cnb-cache-sqlite
 Multi-Arch: foreign
-Depends: ${misc:Depends},cnb-cache, dbconfig-sqlite3, php-sqlite3, sqlite3
+Depends: ${misc:Depends},cnb-cache, dbconfig-sqlite3, php-sqlite3, sqlite3, php-robmorgan-phinx|php-cakephp-phinx
 Conflicts: cnb-cache-mysql, cnb-cache-pgsql
 Replaces: multi-flexibee-setup-sqlite
 Architecture: all
