@@ -111,7 +111,7 @@ class ExchangeRate extends \Ease\SQL\Engine {
     }
 
     public function dropOlder(int $days): void {
-        if($this->dropFromSQL(['date' => ['<' => self::dateBeforeDays($days)]]) > 0){
+        if($this->deleteFromSQL(['date' => ['<' => self::dateBeforeDays($days)]]) > 0){
             $this->addStatusMessage(sprintf(_('Dropped rates older than %d days'), $days), 'success');
         }
     }
