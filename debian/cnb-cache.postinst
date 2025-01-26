@@ -143,6 +143,7 @@ case "$1" in
         done
     fi
 
+    composer-debian cnb-cache
     cnb-cache-init
 
     ;;
