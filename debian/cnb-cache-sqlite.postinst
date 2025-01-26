@@ -95,8 +95,6 @@ configure)
     fi
 
 
-    phinx migrate -c /usr/lib/cnb-cache/phinx-adapter.php
-
     if [ -f /var/lib/cnb-cache/cnb-cache ]; then
         chown root:cnb-cache /var/lib/cnb-cache
         chmod ug+rw /var/lib/cnb-cache

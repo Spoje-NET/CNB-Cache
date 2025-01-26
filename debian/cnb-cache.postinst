@@ -171,6 +171,9 @@ configure)
         fi
     fi
 
+    echo "Migrate database"
+    phinx migrate -c /usr/lib/cnb-cache/phinx-adapter.php || true
+
     echo "Initializing cache"
 
 
