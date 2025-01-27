@@ -68,4 +68,4 @@ After installation the currencies listing is available on the `/cnb-cache/` path
 
 The systemd-crond service is started and the cache is updated every day at 0:01 AM
 
-See also:
+See also: https://github.com/Spoje-NET/pohoda-raiffeisenbank
