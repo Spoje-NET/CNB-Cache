@@ -2,13 +2,15 @@
 
 ![cnb-cache](cnb-cache.svg?raw=true)
 
+[![PHP Version](https://img.shields.io/badge/php-%3E%3D%207.4-8892BF.svg)](https://php.net/)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Latest Release](https://img.shields.io/github/v/release/vitexsoftware/cnb-cache.svg)](https://github.com/vitexsoftware/cnb-cache/releases)
+
 Store daily currency rates in SQL database for given time.
 
 Provide simple API like web interface for stored rates obtaining.
 
-Installation
-------------
-
+## Installation
 
 ```shell
 sudo apt install lsb-release wget apt-transport-https bzip2
@@ -21,8 +23,7 @@ sudo apt update
 sudo apt install cnb-cache-DATABASE
 ```
 
-database can be `mysql` or `sqlite` 
-
+database can be `mysql` or `sqlite`
 
 Support the apache2 and lighthttpd web servers:
 
@@ -40,20 +41,18 @@ And finally the cache is initialized:
 
 ![Initialization](init.png?raw=true)
 
-
 Data stored in database:
 
 ![Database](db.png?raw=true)
 
 Final configuration is stored in `/etc/cnb-cache/cnb-cache.env` file
 
-
 ### Data Obtaining
 
 After installation the currencies listing is available on the `/cnb-cache/` path.
 
-* http://localhost/cnb-cache/?currency=eur - todays EUR rate
-* http://localhost/cnb-cache/?currency=USD&age=yesterday - yesterday $ rate
+* <http://localhost/cnb-cache/?currency=eur> - todays EUR rate
+* <http://localhost/cnb-cache/?currency=USD&when=yesterday> - yesterday $ rate
 
 ```json
 {
@@ -68,3 +67,5 @@ After installation the currencies listing is available on the `/cnb-cache/` path
 ```
 
 The systemd-crond service is started and the cache is updated every day at 0:01 AM
+
+See also:
