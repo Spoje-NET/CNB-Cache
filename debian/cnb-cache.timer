@@ -1,5 +1,5 @@
 [Unit]
-Description=Run cnb-cache-update every minute
+Description=Run cnb-cache-update every midnight
 
 [Timer]
 OnCalendar=00:01
