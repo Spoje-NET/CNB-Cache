@@ -90,9 +90,10 @@ class ExchangeRate extends \Ease\SQL\Engine {
     /**
      * Insert Data to SQL.
      *
-     * @return bool
+     * @return array<string,array<string,string|float|int>>
      */
-    public function storeDay(int $dayBack = 0): void {
+    public function storeDay(int $dayBack = 0): array {
+        $stored = [];
         $datum = self::dateBeforeDays($dayBack);
 
         foreach ($this->cnbCsv2Data($this->exchangeRateRaw($datum)) as $currencyData) {
@@ -101,6 +102,7 @@ class ExchangeRate extends \Ease\SQL\Engine {
             if (\array_key_exists($currencyData['code'], $this->currencies)) {
                 if (!$this->recordExist(['code' => $currencyData['code'], 'date' => $datum])) {
                     if ($this->insertToSQL($currencyData)) {
+                        $stored[$currencyData['code']] = $currencyData;
                         $this->addStatusMessage(sprintf(_('Stored: %s for %s'), $currencyData['code'], $currencyData['date']), 'success');
                     }
                 } else {
@@ -108,6 +110,7 @@ class ExchangeRate extends \Ease\SQL\Engine {
                 }
             }
         }
+        return $stored;
     }
 
     public function dropOlder(int $days): void {
@@ -127,7 +130,7 @@ class ExchangeRate extends \Ease\SQL\Engine {
         if($rateInfo){
             $result = $rateInfo[0];
         } else {
-            $result['message'] = 'no record for '. self::dateBeforeDays($age);
+           $result = $this->storeDay($age)[$currency];
         }
         
         $result['age'] = $age;

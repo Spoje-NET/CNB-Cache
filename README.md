@@ -51,6 +51,14 @@ Final configuration is stored in `/etc/cnb-cache/cnb-cache.env` file
 
 After installation the currencies listing is available on the `/cnb-cache/` path.
 
+you can use following URL parameters:
+
+* `currency` - currency code (default: CZK)
+* `when` - date of rate (default: today)
+* `date` - date of rate in format YYYY-MM-DD
+* `age` - age of rate in days (default: 0)
+* `when` - yesterday, beforeyesterday - today is default
+
 * <http://localhost/cnb-cache/?currency=eur> - todays EUR rate
 * <http://localhost/cnb-cache/?currency=USD&when=yesterday> - yesterday $ rate
 

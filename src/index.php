@@ -26,6 +26,7 @@ $engine = new \SpojeNet\Cnb\ExchangeRate();
 
 $currency = $_GET['currency'] ?? null;
 $when = $_GET['when'] ?? null;
+$date = $when = $_GET['date'] ?? null;
 
 switch ($when) {
     case 'yesterday':
@@ -38,7 +39,11 @@ switch ($when) {
         break;
 
     default:
-        $age = isset($_GET['age']) ? (int) $_GET['age'] : 0;
+        if($date){
+            $age = (new DateTime())->diff(new DateTime($date))->days;
+        } else {
+            $age = isset($_GET['age']) ? (int) $_GET['age'] : 0;
+        }
 
         break;
 }
