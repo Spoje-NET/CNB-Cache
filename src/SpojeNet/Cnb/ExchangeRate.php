@@ -41,6 +41,9 @@ class ExchangeRate extends \Ease\SQL\Engine
         parent::__construct();
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function getCurrencyList(): array
     {
         return $this->currencies;
@@ -68,10 +71,11 @@ class ExchangeRate extends \Ease\SQL\Engine
     /**
      * Convert CNB CSV to Array.
      *
-     * @return array<string, array<string, string>>
+     * @return array<string, array<string, float|int|string>>
      */
     public function cnbCsv2Data(string $ratesRaw): array
     {
+        $rates = [];
         $data = strstr($ratesRaw, "\n") ? explode("\n", $ratesRaw) : [];
 
         unset($data[0], $data[1]);
@@ -132,12 +136,17 @@ class ExchangeRate extends \Ease\SQL\Engine
         $this->dropOlder($this->getKeepDays());
     }
 
-    public function getRateInfo($currency, $age): array
+    /**
+     * Get exchange rate for currency.
+     *
+     * @return array<string, array<string, float|int|string>>
+     */
+    public function getRateInfo(string $currency, int $age): array
     {
         $rateInfo = $this->getColumnsFromSQL(['*'], ['code' => $currency, 'date' => self::dateBeforeDays($age)]);
 
         if ($rateInfo) {
-            $result = $rateInfo[0];
+            $result = current($rateInfo);
         } else {
             $result = $this->storeDay($age)[$currency];
         }
@@ -150,5 +159,10 @@ class ExchangeRate extends \Ease\SQL\Engine
     public static function dateBeforeDays(int $daysBack): string
     {
         return date('Y-m-d', $daysBack ? strtotime('-'.(string) $daysBack.' day') : null);
+    }
+
+    public function getHttpCode(): int
+    {
+        return $this->httpcode;
     }
 }
