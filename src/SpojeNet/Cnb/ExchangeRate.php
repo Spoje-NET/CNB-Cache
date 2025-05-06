@@ -20,8 +20,8 @@ namespace SpojeNet\Cnb;
  *
  * @author Vitex <info@vitexsoftware.cz>
  */
-class ExchangeRate extends \Ease\SQL\Engine {
-
+class ExchangeRate extends \Ease\SQL\Engine
+{
     public static string $baseUrl = 'https://www.cnb.cz/cs/financni_trhy/devizovy_trh/kurzy_devizoveho_trhu/denni_kurz.txt';
     private int $keepdays = 3;
     private int $httpcode = 0;
@@ -31,25 +31,29 @@ class ExchangeRate extends \Ease\SQL\Engine {
      */
     private array $currencies = [];
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->setMyTable('rates');
         $this->setObjectName();
         $currencies = explode(',', str_replace(' ', '', \Ease\Shared::cfg('CURRENCIES', 'EUR')));
         $this->currencies = array_combine($currencies, $currencies);
-        $this->keepdays = intval(\Ease\Shared::cfg('KEEP_DAYS', 3));
+        $this->keepdays = (int) \Ease\Shared::cfg('KEEP_DAYS', 3);
         parent::__construct();
     }
 
-    public function getCurrencyList(): array {
+    public function getCurrencyList(): array
+    {
         return $this->currencies;
     }
 
-    public function getKeepDays(): int {
+    public function getKeepDays(): int
+    {
         return $this->keepdays;
     }
 
-    public function exchangeRateRaw(string $datum): string {
-        $url = self::$baseUrl . '?date=' . date('d.m.Y', strtotime($datum));
+    public function exchangeRateRaw(string $datum): string
+    {
+        $url = self::$baseUrl.'?date='.date('d.m.Y', strtotime($datum));
 
         $ch = curl_init();
         curl_setopt($ch, \CURLOPT_URL, $url);
@@ -66,8 +70,9 @@ class ExchangeRate extends \Ease\SQL\Engine {
      *
      * @return array<string, array<string, string>>
      */
-    public function cnbCsv2Data(string $ratesRaw) {
-        $data = explode("\n", $ratesRaw);
+    public function cnbCsv2Data(string $ratesRaw): array
+    {
+        $data = strstr($ratesRaw, "\n") ? explode("\n", $ratesRaw) : [];
 
         unset($data[0], $data[1]);
 
@@ -90,9 +95,10 @@ class ExchangeRate extends \Ease\SQL\Engine {
     /**
      * Insert Data to SQL.
      *
-     * @return array<string,array<string,string|float|int>>
+     * @return array<string, array<string, float|int|string>>
      */
-    public function storeDay(int $dayBack = 0): array {
+    public function storeDay(int $dayBack = 0): array
+    {
         $stored = [];
         $datum = self::dateBeforeDays($dayBack);
 
@@ -110,34 +116,39 @@ class ExchangeRate extends \Ease\SQL\Engine {
                 }
             }
         }
+
         return $stored;
     }
 
-    public function dropOlder(int $days): void {
-        if($this->deleteFromSQL(['date' => ['<' => self::dateBeforeDays($days)]]) > 0){
+    public function dropOlder(int $days): void
+    {
+        if ($this->deleteFromSQL(['date' => ['<' => self::dateBeforeDays($days)]]) > 0) {
             $this->addStatusMessage(sprintf(_('Dropped rates older than %d days'), $days), 'success');
         }
     }
 
-    public function shiftDays(): void {
+    public function shiftDays(): void
+    {
         $this->dropOlder($this->getKeepDays());
     }
 
-    public function getRateInfo($currency, $age): array {
-        
+    public function getRateInfo($currency, $age): array
+    {
         $rateInfo = $this->getColumnsFromSQL(['*'], ['code' => $currency, 'date' => self::dateBeforeDays($age)]);
-        
-        if($rateInfo){
+
+        if ($rateInfo) {
             $result = $rateInfo[0];
         } else {
-           $result = $this->storeDay($age)[$currency];
+            $result = $this->storeDay($age)[$currency];
         }
-        
+
         $result['age'] = $age;
-        return $result ;
+
+        return $result;
     }
 
-    public static function dateBeforeDays(int $daysBack): string {
-        return date('Y-m-d', $daysBack ? strtotime('-' . (string) $daysBack . ' day') : null);
+    public static function dateBeforeDays(int $daysBack): string
+    {
+        return date('Y-m-d', $daysBack ? strtotime('-'.(string) $daysBack.' day') : null);
     }
 }

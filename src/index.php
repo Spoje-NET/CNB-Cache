@@ -39,7 +39,7 @@ switch ($when) {
         break;
 
     default:
-        if($date){
+        if ($date) {
             $age = (new DateTime())->diff(new DateTime($date))->days;
         } else {
             $age = isset($_GET['age']) ? (int) $_GET['age'] : 0;
