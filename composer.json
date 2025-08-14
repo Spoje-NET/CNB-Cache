@@ -4,7 +4,7 @@
     "type": "project",
     "require": {
         "vitexsoftware/ease-core": "^1.49",
-        "robmorgan/phinx": "^0.16.6",
+        "robmorgan/phinx": "^0.16.10",
         "vitexsoftware/ease-fluentpdo": "^1.4"
     },
     "autoload": {
