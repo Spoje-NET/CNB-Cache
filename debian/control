@@ -2,7 +2,7 @@ Source: cnb-cache
 Section: unknown
 Priority: optional
 Maintainer: Vítězslav Dvořák <info@vitexsoftware.cz>
-Build-Depends: debhelper-compat (= 13)
+Build-Depends: debhelper-compat (= 13), jq, moreutils
 Standards-Version: 4.5.1
 Homepage: https://github.com/Spoje-NET/CNB-cache
 Rules-Requires-Root: no
