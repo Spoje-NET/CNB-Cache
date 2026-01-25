@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.spoje_net.cnb_cache</id>
+  <metadata_license>MIT</metadata_license>
+  <project_license>MIT</project_license>
+  <name>cnb-cache</name>
+  <summary>CNB Currency rate Cache</summary>
+  <description>
+    <p>
+      Keep the history of specified currencies stored in SQL database. Mandatory dependencies for use CNB cache with SQLite database Mandatory dependencies for use CNB cache with MySQL/MariaDB databas
+    </p>
+  </description>
+  <categories>
+    <category>Utility</category>
+  </categories>
+  <url type="homepage">https://github.com/Spoje-NET/CNB-Cache</url>
+  <url type="bugtracker">https://github.com/Spoje-NET/CNB-Cache/issues</url>
+  <developer id="io.github.spoje_net">
+    <name>Spoje.Net</name>
+  </developer>
+  <content_rating type="oars-1.1"/>
+</component>
