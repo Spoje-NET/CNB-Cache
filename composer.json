@@ -3,7 +3,7 @@
     "description": "Application for downloading the CNB exchange rate list.",
     "type": "project",
     "require": {
-        "vitexsoftware/ease-core": "^1.49",
+        "vitexsoftware/ease-core": "^1.50",
         "robmorgan/phinx": "^0.16.6",
         "vitexsoftware/ease-fluentpdo": "^1.4"
     },
