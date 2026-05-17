@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="console-application">
   <id>io.github.spoje_net.cnb_cache</id>
+  <icon type="stock">cnb-cache</icon>
   <metadata_license>MIT</metadata_license>
   <project_license>MIT</project_license>
   <name>cnb-cache</name>
@@ -11,13 +12,12 @@
       Supports SQLite, MySQL/MariaDB, and PostgreSQL backends.
     </p>
   </description>
-  <icon type="stock">cnb-cache</icon>
   <categories>
     <category>Finance</category>
     <category>ConsoleOnly</category>
   </categories>
-  <url type="homepage">https://github.com/Spoje-NET/CNB-Cache</url>
-  <url type="bugtracker">https://github.com/Spoje-NET/CNB-Cache/issues</url>
+  <url type="homepage">https://github.com/Spoje-NET/CNB-Tools</url>
+  <url type="bugtracker">https://github.com/Spoje-NET/CNB-Tools/issues</url>
   <developer id="io.github.spoje_net">
     <name>Spoje.Net</name>
   </developer>
