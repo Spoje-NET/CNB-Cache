@@ -12,7 +12,7 @@ debian/conf/cnb-cache.service 		  etc/avahi/services
 bin/*					  usr/bin
 src/init.php					  usr/lib/cnb-cache
 src/update.php					  usr/lib/cnb-cache
-#debian/cz.spojenet.cnb-cache.metainfo.xml    usr/share/metainfo/
-#debian/cz.spojenet.cnb-cache.desktop         usr/share/applications/
+debian/io.github.spoje_net.cnb_cache.metainfo.xml    usr/share/metainfo/
+#debian/cz.spojenet.cnb-cache.desktop                usr/share/applications/
 cnb-cache.svg                 usr/share/icons/hicolor/scalable/apps/
 example.env		      etc/cnb-cache

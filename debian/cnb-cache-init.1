@@ -1,0 +1,22 @@
+.TH CNB-CACHE-INIT 1 "" "cnb-cache" "User Commands"
+.SH NAME
+cnb\-cache\-init \- Initialize the CNB currency rate cache database
+.SH SYNOPSIS
+.B cnb-cache-init
+[\fB\-e\fR \fIENVFILE\fR]
+.SH DESCRIPTION
+Downloads historical exchange rates from the Czech National Bank and stores them
+in the configured SQL database.
+The number of days of history to fetch is controlled by the KEEP_DAYS configuration variable.
+.SH OPTIONS
+.TP
+.BR \-e ", " \-\-environment=\fIENVFILE\fR
+Path to the environment configuration file (default: /etc/cnb-cache/cnb-cache.env).
+.SH FILES
+.TP
+.I /etc/cnb-cache/cnb-cache.env
+Main configuration file.
+.SH SEE ALSO
+.BR cnb-cache-update (1)
+.SH AUTHOR
+Vítězslav Dvořák <info@vitexsoftware.cz>

@@ -88,6 +88,10 @@ distributions.each { distro ->
                         artifacts.each { deb_file ->
                             if (deb_file.endsWith('.deb')) {
                                 def pkgName = deb_file.tokenize('/')[-1].replaceFirst(/_.*/, '')
+                                if (pkgName ==~ /.*-(mysql|pgsql)/) {
+                                    echo "Skipping ${pkgName} - requires a running database server"
+                                    return
+                                }
                                 def distroCodename = sh(
                                     script: "lsb_release -sc",
                                     returnStdout: true

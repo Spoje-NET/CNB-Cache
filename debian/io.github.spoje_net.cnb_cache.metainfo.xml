@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<component type="desktop-application">
+<component type="console-application">
   <id>io.github.spoje_net.cnb_cache</id>
   <metadata_license>MIT</metadata_license>
   <project_license>MIT</project_license>
@@ -7,16 +7,26 @@
   <summary>CNB Currency rate Cache</summary>
   <description>
     <p>
-      Keep the history of specified currencies stored in SQL database. Mandatory dependencies for use CNB cache with SQLite database Mandatory dependencies for use CNB cache with MySQL/MariaDB databas
+      Downloads and caches exchange rates from the Czech National Bank into a SQL database.
+      Supports SQLite, MySQL/MariaDB, and PostgreSQL backends.
     </p>
   </description>
+  <icon type="stock">cnb-cache</icon>
   <categories>
-    <category>Utility</category>
+    <category>Finance</category>
+    <category>ConsoleOnly</category>
   </categories>
   <url type="homepage">https://github.com/Spoje-NET/CNB-Cache</url>
   <url type="bugtracker">https://github.com/Spoje-NET/CNB-Cache/issues</url>
   <developer id="io.github.spoje_net">
     <name>Spoje.Net</name>
   </developer>
+  <provides>
+    <binary>cnb-cache-init</binary>
+    <binary>cnb-cache-update</binary>
+  </provides>
+  <releases>
+    <release version="0.1.0" date="2025-01-25"/>
+  </releases>
   <content_rating type="oars-1.1"/>
 </component>

@@ -1,0 +1,21 @@
+.TH CNB-CACHE-UPDATE 1 "" "cnb-cache" "User Commands"
+.SH NAME
+cnb\-cache\-update \- Update the CNB currency rate cache
+.SH SYNOPSIS
+.B cnb-cache-update
+[\fB\-e\fR \fIENVFILE\fR]
+.SH DESCRIPTION
+Fetches today's exchange rates from the Czech National Bank and stores them
+in the configured SQL database, then removes rates older than KEEP_DAYS days.
+.SH OPTIONS
+.TP
+.BR \-e ", " \-\-environment=\fIENVFILE\fR
+Path to the environment configuration file (default: /etc/cnb-cache/cnb-cache.env).
+.SH FILES
+.TP
+.I /etc/cnb-cache/cnb-cache.env
+Main configuration file.
+.SH SEE ALSO
+.BR cnb-cache-init (1)
+.SH AUTHOR
+Vítězslav Dvořák <info@vitexsoftware.cz>
