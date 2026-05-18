@@ -86,7 +86,7 @@ case "$1" in
         cat /etc/cnb-cache/cnb-cache.env
         echo "############################"
 
-        phinx migrate -c /usr/lib/cnb-cache/phinx-adapter.php
+        php /usr/lib/cnb-cache/phinx.php migrate -c /usr/lib/cnb-cache/phinx-adapter.php
 
         if [ -f /var/lib/cnb-cache/cnb-cache ]; then
             chown root:cnb-cache /var/lib/cnb-cache

@@ -4,6 +4,7 @@ db/migrations/*				 usr/lib/cnb-cache/db/migrations
 #db/seeds/*				 usr/lib/cnb-cache/db/seeds
 debian/tmp/composer.json                 usr/lib/cnb-cache
 debian/conf/phinx-adapter.php	         usr/lib/cnb-cache
+debian/conf/phinx.php		         usr/lib/cnb-cache
 
 src/SpojeNet/Cnb/ExchangeRate.php	 usr/lib/cnb-cache/
 

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 require_once '/usr/share/php/Ease/autoload.php';
 require_once '/usr/share/php/EaseFluentPDO/autoload.php';
 
