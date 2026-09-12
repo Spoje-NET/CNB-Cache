@@ -6,6 +6,8 @@
 [Unit]
 Description=Logs system statistics to the systemd journal
 Wants=cnb-cache.timer
+After=network-online.target
+Wants=network-online.target
 
 [Service]
 Type=oneshot

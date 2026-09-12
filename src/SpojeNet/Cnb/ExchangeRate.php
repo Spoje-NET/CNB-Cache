@@ -63,9 +63,14 @@ class ExchangeRate extends \Ease\SQL\Engine
         curl_setopt($ch, \CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($ch);
         $this->httpcode = curl_getinfo($ch, \CURLINFO_HTTP_CODE);
+
+        if ($response === false) {
+            $this->addStatusMessage(sprintf(_('Failed to fetch exchange rates: %s'), curl_error($ch)), 'error');
+        }
+
         curl_close($ch);
 
-        return $response;
+        return $response === false ? '' : $response;
     }
 
     /**
