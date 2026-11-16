@@ -60,6 +60,9 @@ you can use following URL parameters:
 * `age` - age of rate in days (default: 0)
 * `when` - yesterday, beforeyesterday - today is default
 
+* `currencies` - list the cached currencies as JSON (`{"currencies":["EUR","USD"],"keep_days":3}`)
+
+* <http://localhost/cnb-cache/?currencies> - cached currencies listing
 * <http://localhost/cnb-cache/?currency=eur> - todays EUR rate
 * <http://localhost/cnb-cache/?currency=USD&when=yesterday> - yesterday $ rate
 

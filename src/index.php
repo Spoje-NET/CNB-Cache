@@ -48,6 +48,16 @@ switch ($when) {
         break;
 }
 
+if (isset($_GET['currencies'])) {
+    header('Content-Type: application/json');
+    echo json_encode([
+        'currencies' => array_values($engine->getCurrencyList()),
+        'keep_days' => $engine->getKeepDays(),
+    ]);
+
+    exit;
+}
+
 if ($currency === null) {
     http_response_code(404);
     $currencyList = $engine->getCurrencyList();
