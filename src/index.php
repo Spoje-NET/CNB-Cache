@@ -24,11 +24,17 @@ Shared::init(
 
 $engine = new \SpojeNet\Cnb\ExchangeRate();
 
-$currency = $_GET['currency'] ?? null;
-$when = $_GET['when'] ?? null;
-$date = $when = $_GET['date'] ?? null;
+$currency = isset($_GET['currency']) && \is_string($_GET['currency']) ? strtoupper($_GET['currency']) : null;
+// The rewrite rules pass "yesterday" in the date parameter.
+$when = $_GET['date'] ?? $_GET['when'] ?? null;
 
 switch ($when) {
+    case null:
+    case '':
+    case 'today':
+        $age = isset($_GET['age']) ? (int) $_GET['age'] : 0;
+
+        break;
     case 'yesterday':
         $age = 1;
 
@@ -39,11 +45,7 @@ switch ($when) {
         break;
 
     default:
-        if ($date) {
-            $age = (new DateTime())->diff(new DateTime($date))->days;
-        } else {
-            $age = isset($_GET['age']) ? (int) $_GET['age'] : 0;
-        }
+        $age = \is_string($when) ? $engine->ageOf($when) : null;
 
         break;
 }
@@ -79,7 +81,22 @@ if ($currency === null) {
     exit;
 }
 
+header('Content-Type: application/json');
+
+if ($age === null || $age < 0) {
+    http_response_code(400);
+    echo json_encode(['error' => 'Wrong or future date']);
+
+    exit;
+}
+
 $rateInfo = $engine->getRateInfo($currency, $age);
 
-header('Content-Type: application/json');
+if (empty($rateInfo)) {
+    http_response_code(404);
+    echo json_encode(['error' => 'Rate is not available']);
+
+    exit;
+}
+
 echo json_encode($rateInfo);

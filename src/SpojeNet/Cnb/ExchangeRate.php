@@ -102,36 +102,79 @@ class ExchangeRate extends \Ease\SQL\Engine
     }
 
     /**
-     * Insert Data to SQL.
+     * Day the CNB list was published, from its first line ("20.11.2026 #223").
      *
-     * @return array<string, array<string, float|int|string>>
+     * For a weekend, a holiday or a day whose list is not out yet CNB answers with the last published one.
+     */
+    public static function publishedDate(string $ratesRaw): ?string
+    {
+        return preg_match('/^\s*(\d{2})\.(\d{2})\.(\d{4})\s+#\d+/', $ratesRaw, $m) && checkdate((int) $m[2], (int) $m[1], (int) $m[3]) ? $m[3].'-'.$m[2].'-'.$m[1] : null;
+    }
+
+    /**
+     * May the list published on $published be kept as the rate of $date?
+     *
+     * Today's list comes on working days after 14:30; until then the previous one is only temporary.
+     */
+    public static function isFinal(string $date, string $published, string $today): bool
+    {
+        if ($date > $today || $published > $date) {
+            return false;
+        }
+
+        return $date < $today || $published === $date || (int) date('N', strtotime($date)) > 5;
+    }
+
+    /**
+     * Download rates of a day and keep them when they are final.
+     *
+     * @return array<string, array<string, float|int|string>> rates of configured currencies by code
      */
     public function storeDay(int $dayBack = 0): array
     {
-        $stored = [];
-        $datum = self::dateBeforeDays($dayBack);
+        $datum = $this->dateBeforeDays($dayBack);
+        $ratesRaw = $this->exchangeRateRaw($datum);
+        $published = self::publishedDate($ratesRaw);
+        $rates = [];
 
-        foreach ($this->cnbCsv2Data($this->exchangeRateRaw($datum)) as $currencyData) {
+        if ($published === null || $published > $datum) {
+            $this->addStatusMessage(sprintf(_('No CNB rates for %s'), $datum), 'error');
+
+            return $rates;
+        }
+
+        $final = self::isFinal($datum, $published, $this->today());
+
+        foreach ($this->cnbCsv2Data($ratesRaw) as $currencyData) {
+            if (!\array_key_exists($currencyData['code'], $this->currencies)) {
+                continue;
+            }
+
             $currencyData['date'] = $datum;
+            $currencyData['published'] = $published;
+            $rates[$currencyData['code']] = $currencyData;
 
-            if (\array_key_exists($currencyData['code'], $this->currencies)) {
-                if (!$this->recordExist(['code' => $currencyData['code'], 'date' => $datum])) {
-                    if ($this->insertToSQL($currencyData)) {
-                        $stored[$currencyData['code']] = $currencyData;
-                        $this->addStatusMessage(sprintf(_('Stored: %s for %s'), $currencyData['code'], $currencyData['date']), 'success');
-                    }
-                } else {
-                    $this->addStatusMessage(sprintf(_('Already present: %s for %s'), $currencyData['code'], $currencyData['date']), 'warning');
-                }
+            if (!$final) {
+                continue;
+            }
+
+            $conditions = ['code' => $currencyData['code'], 'date' => $datum];
+
+            if ($this->getColumnsFromSQL(['id'], $conditions)) {
+                // Rows from older versions may hold the rate of the previous day.
+                $this->updateToSQL($currencyData, $conditions);
+            } else {
+                $this->insertToSQL($currencyData);
+                $this->addStatusMessage(sprintf(_('Stored: %s for %s'), $currencyData['code'], $currencyData['date']), 'success');
             }
         }
 
-        return $stored;
+        return $rates;
     }
 
     public function dropOlder(int $days): void
     {
-        if ($this->deleteFromSQL(['date' => ['<' => self::dateBeforeDays($days)]]) > 0) {
+        if ($this->deleteFromSQL(['date' => ['<' => $this->dateBeforeDays($days)]]) > 0) {
             $this->addStatusMessage(sprintf(_('Dropped rates older than %d days'), $days), 'success');
         }
     }
@@ -142,28 +185,54 @@ class ExchangeRate extends \Ease\SQL\Engine
     }
 
     /**
-     * Get exchange rate for currency.
+     * Exchange rate of a currency. "date" is the day asked for, "published" the day of the CNB list it comes from.
      *
-     * @return array<string, array<string, float|int|string>>
+     * @return array<string, float|int|string> empty when the rate is not known
      */
     public function getRateInfo(string $currency, int $age): array
     {
-        $rateInfo = $this->getColumnsFromSQL(['*'], ['code' => $currency, 'date' => self::dateBeforeDays($age)]);
-
-        if ($rateInfo) {
-            $result = current($rateInfo);
-        } else {
-            $result = $this->storeDay($age)[$currency];
+        if ($age < 0 || !\array_key_exists($currency, $this->currencies)) {
+            return [];
         }
 
-        $result['age'] = $age;
+        $rateInfo = $this->getColumnsFromSQL(['*'], ['code' => $currency, 'date' => $this->dateBeforeDays($age)]);
+        $result = $rateInfo ? current($rateInfo) : [];
+
+        // Rows without the publication day come from versions that could store a premature rate.
+        if (empty($result['published'])) {
+            $result = $this->storeDay($age)[$currency] ?? [];
+        }
+
+        if ($result) {
+            $result['age'] = $age;
+        }
 
         return $result;
     }
 
-    public static function dateBeforeDays(int $daysBack): string
+    /**
+     * Days from $date to today, null for a malformed or future date.
+     */
+    public function ageOf(string $date): ?int
     {
-        return date('Y-m-d', $daysBack ? strtotime('-'.(string) $daysBack.' day') : null);
+        $day = \DateTimeImmutable::createFromFormat('!Y-m-d', $date, new \DateTimeZone('UTC'));
+
+        if ($day === false || $day->format('Y-m-d') !== $date || $date > $this->today()) {
+            return null;
+        }
+
+        return (int) $day->diff(new \DateTimeImmutable($this->today(), new \DateTimeZone('UTC')))->days;
+    }
+
+    /** Today in Prague, where CNB publishes. */
+    public function today(): string
+    {
+        return (new \DateTimeImmutable('now', new \DateTimeZone('Europe/Prague')))->format('Y-m-d');
+    }
+
+    public function dateBeforeDays(int $daysBack): string
+    {
+        return (new \DateTimeImmutable($this->today()))->modify('-'.$daysBack.' day')->format('Y-m-d');
     }
 
     public function getHttpCode(): int

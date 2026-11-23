@@ -1,8 +1,11 @@
 [Unit]
-Description=Run cnb-cache-update every midnight
+Description=Run cnb-cache-update after midnight and after CNB publishes
 
 [Timer]
 OnCalendar=00:01
+# CNB publishes on working days after 14:30
+OnCalendar=Mon..Fri 14:45 Europe/Prague
+OnCalendar=Mon..Fri 15:30 Europe/Prague
 Persistent=true
 
 [Install]

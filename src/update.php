@@ -32,5 +32,7 @@ if (\Ease\Shared::cfg('APP_DEBUG')) {
     $engine->logBanner();
 }
 
+// The evening list of yesterday, then today's if it is already out.
+$engine->storeDay(1);
 $engine->storeDay(0);
 $engine->shiftDays();

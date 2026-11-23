@@ -55,10 +55,10 @@ After installation the currencies listing is available on the `/cnb-cache/` path
 you can use following URL parameters:
 
 * `currency` - currency code (default: CZK)
-* `when` - date of rate (default: today)
-* `date` - date of rate in format YYYY-MM-DD
+* `when` - `today` (default), `yesterday` or `beforeyesterday`
+* `date` - date of rate in format YYYY-MM-DD; a malformed or future date returns HTTP 400
 * `age` - age of rate in days (default: 0)
-* `when` - yesterday, beforeyesterday - today is default
+
 
 * `currencies` - list the cached currencies as JSON (`{"currencies":["EUR","USD"],"keep_days":3}`)
 
@@ -74,10 +74,15 @@ you can use following URL parameters:
   "amount": 1,
   "code": "USD",
   "rate": 23.958,
-  "age": 2
+  "age": 2,
+  "published": "2025-01-24"
 }
 ```
 
-The systemd-crond service is started and the cache is updated every day at 0:01 AM
+`published` is the day of the CNB list the rate comes from. CNB publishes on working days after 14:30 and the list is valid
+until the next one, so on weekends, holidays and before publication it is older than `date`. A rate which is not final yet is
+returned but not cached. Unknown or unconfigured currency returns HTTP 404.
+
+The systemd timer updates the cache at 0:01 and on working days at 14:45 and 15:30 (Prague time).
 
 See also: https://github.com/Spoje-NET/pohoda-raiffeisenbank
