@@ -25,7 +25,9 @@ class FakeRate extends ExchangeRate
 {
     public string $now = '2026-11-23';
 
-    /** @var array<string, string> */
+    /**
+     * @var array<string, string>
+     */
     public array $lists = [];
     public int $downloads = 0;
 

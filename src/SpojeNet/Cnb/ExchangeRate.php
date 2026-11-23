@@ -224,7 +224,9 @@ class ExchangeRate extends \Ease\SQL\Engine
         return (int) $day->diff(new \DateTimeImmutable($this->today(), new \DateTimeZone('UTC')))->days;
     }
 
-    /** Today in Prague, where CNB publishes. */
+    /**
+     * Today in Prague, where CNB publishes.
+     */
     public function today(): string
     {
         return (new \DateTimeImmutable('now', new \DateTimeZone('Europe/Prague')))->format('Y-m-d');
